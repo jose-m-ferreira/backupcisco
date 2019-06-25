@@ -33,11 +33,13 @@ def starttftp():
             break
 
 
-def backup(host, user, password, localip):
+def backup(host, user, password, enablepw, localip):
     host = host
     user = user
     password = password
+    enablepw = enablepw
     localip = localip
+
     copystring = "copy run tftp://" + localip + "/" + host + ".cfg"
     print(copystring)
 
@@ -53,7 +55,7 @@ def backup(host, user, password, localip):
     #tn.read_until(b">")
 
     tn.write(b"enable\n")
-    tn.write(password.encode('ascii') + b"\n")
+    tn.write(enablepw.encode('ascii') + b"\n")
 
     tn.write(copystring.encode('ascii') + b"\n")
     tn.write(b"\n")
@@ -68,10 +70,11 @@ def backup(host, user, password, localip):
 def backupswitches():
     user = input("Enter User Name: ")
     password = getpass.getpass()
+    enablepw = getpass.getpass('Enable Password: ')
     localip = input("Enter TFTP server ip: ")
 
     for switch in ciscoswitches:
-        backup(switch, user, password, localip)
+        backup(switch, user, password, enablepw, localip)
 
 stop_threads = False
 tftp = threading.Thread(target=starttftp).start()
