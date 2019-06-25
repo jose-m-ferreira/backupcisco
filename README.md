@@ -9,7 +9,8 @@ Expects username & password in order to extract configurations
 Copies running-config to the machine by making use of tftp
 
 How to use:
-write list with cisco switches to a text file with name 'cisco_switches.list' with one switch per line.
+
+write a list with the ip address of your cisco switches to a text file with name 'cisco_switches.list'  There should be one switch per line.
 
 running backupcisco.py asks for input:
 
